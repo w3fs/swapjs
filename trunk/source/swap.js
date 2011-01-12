@@ -35,7 +35,7 @@ SWAP.parseDOM = function(obj) {
 	if (obj.hasChildNodes()) {
 		var child = obj.firstChild;
 		while (child) {
-			if (child.nodeType === 1) {
+			if (child.nodeType === 1 && child.nodeName != 'SCRIPT') {
 				str += this.parseDOM(child)
 			}
 			child = child.nextSibling;
@@ -45,54 +45,54 @@ SWAP.parseDOM = function(obj) {
 	return str;
 }
 /*
- *  How to call the animate function
- var animOptions = {
- element : <html object>,
- property : <attribute>,
- unit : <unit, for most of them it iwll be px, but for opacities it wont have nething>,
- from : <starting value>,
- to : <final value>,
- duration : <duration of effects>,
- callBack : <call back function>
- }
- aniMate(animOptions);
+ * How to call the animate function 
+ * var animOptions = { 
+	 * element : <html object>,
+	 * property : <attribute>, 
+	 * unit : <unit, for most of them it iwll be px, but for * opacities it wont have nething>, 
+	 * from : <starting value>, 
+	 * to : <final value>,
+	 * duration : <duration of effects>, 
+	 * callBack : <call back function> 
+ * }
+ * aniMate(animOptions);
  */
 SWAP.aniMate = function(options) {
 	var Ease = {
-		easeInQuad: function(t, b, c, d) {
+		easeInQuad : function(t, b, c, d) {
 			return c * (t /= d) * t + b;
 		},
-		easeOutQuad: function(t, b, c, d) {
+		easeOutQuad : function(t, b, c, d) {
 			return -c * (t /= d) * (t - 2) + b;
 		},
-		easeInOutQuad: function(t, b, c, d) {
-			if ((t /= d / 2) < 1) 
+		easeInOutQuad : function(t, b, c, d) {
+			if ((t /= d / 2) < 1)
 				return c / 2 * t * t + b;
 			return -c / 2 * ((--t) * (t - 2) - 1) + b;
 		},
-		easeInOutCirc: function(t, b, c, d) {
-			if ((t /= d / 2) < 1) 
+		easeInOutCirc : function(t, b, c, d) {
+			if ((t /= d / 2) < 1)
 				return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
 			return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
 		},
-		linearTween: function(t, b, c, d) {
+		linearTween : function(t, b, c, d) {
 			return c * t / d + b;
 		},
-		linear: function(p, n, firstNum, diff) {
+		linear : function(p, n, firstNum, diff) {
 			return firstNum + diff * p;
 		},
-		swing: function(p, n, firstNum, diff) {
+		swing : function(p, n, firstNum, diff) {
 			return ((-Math.cos(p * Math.PI) / 2) + 0.5) * diff + firstNum;
 		}
 	};
 	var ease = options.ease || 'linear';
 	var el = options.element;
-	if (typeof el == 'string') 
+	if (typeof el == 'string')
 		el = document.getElementById(options.element);
-	if (!el) 
+	if (!el)
 		return false;
 	if (el.style[options.property] === options.to + options.unit) {
-		if (options.callBack) 
+		if (options.callBack)
 			options.callBack();
 		return;
 	}
@@ -100,15 +100,16 @@ SWAP.aniMate = function(options) {
 	function nudgeProperty(time) {
 		change = options.to - options.from;
 		if (time <= options.duration) {
-			newVal = Ease.easeInOutCirc(time++, options.from, change, options.duration) + options.unit;
+			newVal = Ease.easeInOutCirc(time++, options.from, change,
+					options.duration)
+					+ options.unit;
 			el.style[options.property] = newVal;
 			setTimeout(function() {
 				nudgeProperty(time);
 			}, 100)
-		}
-		else {
+		} else {
 			el.style[options.property] = options.to + options.unit;
-			if (options.callBack) 
+			if (options.callBack)
 				options.callBack();
 		}
 	}
@@ -140,7 +141,7 @@ SWAP.slider = function(param) {
 	}
 	function init() {
 		gallery.className = 'active';
-		
+
 		var slides = SWAP.getCleanChildren(wrapper);
 		console.log(slides);
 		var len = slides.length;
@@ -150,12 +151,12 @@ SWAP.slider = function(param) {
 		}
 		soloWidth = slides[0].offsetWidth;
 		soloHeight = slides[0].offsetHeight;
-		
+
 		/* Navigation Style : START */
 		navigation.style['width'] = soloWidth + 'px';
 		navigation.className = 'active';
 		/* Navigation Style : END */
-		
+
 		wrapper.style['width'] = totalLen + 'px';
 		wrapper.className = 'active';
 		setNav(nav);
@@ -169,13 +170,13 @@ SWAP.slider = function(param) {
 		if (wrapper.offsetLeft + soloWidth <= 0) {
 			navigation.style['display'] = 'none';
 			SWAP.aniMate({
-				element: wrapper,
-				property: 'marginLeft',
-				unit: 'px',
-				from: wrapper.offsetLeft,
-				to: (wrapper.offsetLeft + soloWidth),
-				duration: param.duration,
-				callBack: function() {
+				element : wrapper,
+				property : 'marginLeft',
+				unit : 'px',
+				from : wrapper.offsetLeft,
+				to : (wrapper.offsetLeft + soloWidth),
+				duration : param.duration,
+				callBack : function() {
 					navigation.style['display'] = 'block';
 				}
 			});
@@ -185,13 +186,13 @@ SWAP.slider = function(param) {
 		if ((wrapper.offsetLeft - soloWidth) > -totalLen) {
 			navigation.style['display'] = 'none';
 			SWAP.aniMate({
-				element: wrapper,
-				property: 'marginLeft',
-				unit: 'px',
-				from: wrapper.offsetLeft,
-				to: (wrapper.offsetLeft - soloWidth),
-				duration: param.duration,
-				callBack: function() {
+				element : wrapper,
+				property : 'marginLeft',
+				unit : 'px',
+				from : wrapper.offsetLeft,
+				to : (wrapper.offsetLeft - soloWidth),
+				duration : param.duration,
+				callBack : function() {
 					navigation.style['display'] = 'block';
 				}
 			});
@@ -200,6 +201,7 @@ SWAP.slider = function(param) {
 	init();
 }
 window.onload = function() {
-	/*var coll = SWAP.parseDOM();
-	 logr(coll);*/
+	/*
+	 * var coll = SWAP.parseDOM(); logr(coll);
+	 */
 };

@@ -1,0 +1,15 @@
+#logger {
+    background: #000;
+    color: #F00;
+    font-family: Consolas, 'Lucida Sans Console', 'Courier New';
+    opacity: .5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+#wrapper {
+	background:#AAA;
+    width: 100px;
+}
