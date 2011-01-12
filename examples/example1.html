@@ -1,54 +1,64 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title>Swapnil Sarwe</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<script type="text/javascript" src="../source/swap.js">
-		</script>
-		<script type="text/javascript">
-			window.onload = function(){
-				console.log('A');
-				logr(SWAP.parseDOM());
-			};
-		</script>
-		<link href="gallery.css" type="text/css" rel="stylesheet" />
-	</head>
-	<body>
-		<div id="gallery">
-			<ul id="wrapper">
-				<li>
-					First
-				</li>
-				<li>
-					Second
-				</li>
-				<li>
-					Third
-				</li>
-				<li>
-					Fourth
-				</li>
-				<li>
-					Fifth
-				</li>
-				<li>
-					Sixth
-				</li>
-				<li>
-					Seventh
-				</li>
-				<li>
-					Eight
-				</li>
-			</ul>
-			<ul id="navigate">
-				<li>
-					<a href="#prev">Prev</a>
-				</li>
-				<li>
-					<a href="#next">Next</a>
-				</li>
-			</ul>
-		</div>
-	</body>
+    <head>
+        <title>Swapnil Sarwe</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../source/styles/swapjscss.css" type="text/css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="gallery">
+            <ul id="wrapper">
+                <li>
+                    First
+                </li>
+                <li>
+                    Second
+                </li>
+                <li>
+                    Third
+                </li>
+                <li>
+                    Fourth
+                </li>
+                <li>
+                    Fifth
+                </li>
+                <li>
+                    Sixth
+                </li>
+                <li>
+                    Seventh
+                </li>
+                <li>
+                    Eight
+                </li>
+            </ul>
+            <ul id="navigate">
+                <li>
+                    <a href="#prev">Prev</a>
+                </li>
+                <li>
+                    <a href="#next">Next</a>
+                </li>
+            </ul>
+        </div>
+        <script type="text/javascript" src="../source/swap.js">
+        </script>
+        <script type="text/javascript">
+            //logr(SWAP.parseDOM());
+            var animOptions = {
+                element: ID('wrapper'),
+                property: 'width',
+                unit: 'px',
+                from: '300',
+                to: '600',
+                duration: '50',
+                callBack: function(){
+                    alert('COMPLETED');
+                }
+            }
+            console.log(animOptions);
+            SWAP.aniMate(animOptions);
+        </script>
+    </body>
 </html>
